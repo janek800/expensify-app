@@ -3,14 +3,14 @@ import { shallow } from 'enzyme';
 import { AddExpensePage } from '../../components/AddExpensePage';
 import expenses from '../fixtures/expenses';
 
-let addExpense, history, wrapper;
+let startAddExpense, history, wrapper;
 
 //beforeEach wykona się w każdym teście przed expect dzieki czemu nie trzeb pisać kilka razy tego samego kodu
 //mozna wielokrotnie używać spy i wrapper
 beforeEach(() => {
-    addExpense = jest.fn(); //spy function na potrzeby testowania https://facebook.github.io/jest/docs/en/mock-functions.html
+    startAddExpense = jest.fn(); //spy function na potrzeby testowania https://facebook.github.io/jest/docs/en/mock-functions.html
     history = { push: jest.fn() }; //spy function na potrzeby testowania https://facebook.github.io/jest/docs/en/mock-functions.html
-    wrapper = shallow(<AddExpensePage addExpense={addExpense} history={history} />);
+    wrapper = shallow(<AddExpensePage startAddExpense={startAddExpense} history={history} />);
 });
 
 
@@ -29,5 +29,5 @@ test('should handle onSubmit', () => {
     // const wrapper = shallow(<AddExpensePage addExpense={addExpense} history={history} />);
     wrapper.find('ExpenseForm').prop('onSubmit')(expenses[1]);
     expect(history.push).toHaveBeenLastCalledWith('/');
-    expect(addExpense).toHaveBeenLastCalledWith(expenses[1]);
+    expect(startAddExpense).toHaveBeenLastCalledWith(expenses[1]);
 });
