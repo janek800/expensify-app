@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ExpenseForm from './ExpenseForm';
 //import { editExpense, removeExpense } from '../actions/expenses'; tak było zanim używaliśmy firebase
-import { editExpense, startRemoveExpense } from '../actions/expenses';
+import { startEditExpense, startRemoveExpense } from '../actions/expenses';
 
 //Wersja stateless functional component (przed zastosowaniem map Dispatch to props)
 
@@ -29,7 +29,8 @@ import { editExpense, startRemoveExpense } from '../actions/expenses';
 
 export class EditExpensePage extends React.Component {
     onSubmit = (expense) => {
-      this.props.editExpense(this.props.expense.id, expense);
+      //this.props.editExpense(this.props.expense.id, expense); ta linijka zamiast tej poniżej była kiedy nie używaliśmy jeszcze firebase
+      this.props.startEditExpense(this.props.expense.id, expense);
       this.props.history.push('/');
     };
     onRemove = () => {
@@ -60,7 +61,8 @@ const mapStateToProps = (state, props) => {//mapuje state na propsy, które dale
 }
 
 const mapDispatchToProps = (dispatch, props) => ({ //propsy są potrzebne dla removeExpense, przekazywane jest w nich id expense do usunięcia
-    editExpense: (id, expense) => dispatch(editExpense(id, expense)),
+    //editExpense: (id, expense) => dispatch(editExpense(id, expense)), ta linijka zamiast tej poniżej była kiedy nie używaliśmy jeszcze firebase
+    startEditExpense: (id, expense) => dispatch(startEditExpense(id, expense)),
     //removeExpense: (data) => dispatch(removeExpense(data)) ta linijka zamiast tej poniżej była kiedy nie używaliśmy jeszcze firebase
     startRemoveExpense: (data) => dispatch(startRemoveExpense(data))
 });
