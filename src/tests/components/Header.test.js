@@ -2,10 +2,10 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 // import ReactShallowRenderer from 'react-test-renderer/shallow'; to importowalismy zanim korzystaliśmy z enzyme
-import Header from '../../components/Header';
+import { Header } from '../../components/Header';
 
 test('should render Header correctly', () => {
-    const wrapper = shallow(<Header />);
+    const wrapper = shallow(<Header startLogout={() => {}} />);
     expect(toJSON(wrapper)).toMatchSnapshot(); //toJSON ustawiliśmy tak aby automatycznie się robiło i dlatego nie musimy zapisywać
    
     //expect(wrapper.find('h1').length).toBe(1); sprawdza czy istnieje jeden <h1></h1>
@@ -17,3 +17,11 @@ test('should render Header correctly', () => {
     // renderer.render(<Header />);
     // expect(renderer.getRenderOutput()).toMatchSnapshot();
 });
+
+test('should call startLogout on button click', () => {
+    const startLogout = jest.fn();
+    const wrapper = shallow(<Header startLogout={startLogout} />);
+    wrapper.find('button').simulate('click');
+    expect(startLogout).toHaveBeenCalled();
+});
+
